@@ -1,12 +1,5 @@
 import type { AdapterAccount } from "@auth/core/adapters"
-import { relations, sql } from "drizzle-orm"
-import {
-  AnySQLiteColumn,
-  integer,
-  primaryKey,
-  sqliteTable,
-  text,
-} from "drizzle-orm/sqlite-core"
+import { integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core"
 import { ulid } from "ulid"
 
 export const users = sqliteTable("user", {
@@ -59,86 +52,5 @@ export const verificationTokens = sqliteTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
-)
-
-export const articleViews = sqliteTable("articleViews", {
-  articleSlug: text("articleSlug", { length: 255 }).notNull().primaryKey(),
-  views: integer("views", { mode: "number" }).default(0),
-})
-
-export const articleLikes = sqliteTable("articleLikes", {
-  id: text("id", { length: 255 })
-    .notNull()
-    .primaryKey()
-    .$defaultFn(() => ulid()),
-  userId: text("userId", { length: 255 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  commentId: text("commentId", { length: 255 }).references(
-    () => articleComments.id,
-    { onDelete: "cascade" }
-  ),
-  articleSlug: text("articleSlug", { length: 255 }).notNull(),
-  createdAt: text("createdAt").default(sql`CURRENT_TIMESTAMP`),
-})
-export const articleComments = sqliteTable("articleComments", {
-  id: text("id", { length: 255 })
-    .notNull()
-    .primaryKey()
-    .$defaultFn(() => ulid()),
-  articleSlug: text("articleSlug", { length: 255 }).notNull(),
-  userId: text("userId", { length: 255 })
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`),
-  isEdited: integer("isEdited").default(0),
-  replyingTo: text("replyingTo"),
-  body: text("body"),
-  parentId: text("parentId", { length: 255 }).references(
-    (): AnySQLiteColumn => articleComments.id,
-    { onDelete: "cascade" }
-  ),
-  resolved: integer("resolved", { mode: "boolean" }).default(false),
-})
-
-export const usersRelations = relations(users, ({ many }) => ({
-  author: many(articleComments, {
-    relationName: "author",
-  }),
-  liker: many(articleLikes, {
-    relationName: "liker",
-  }),
-}))
-
-export const likesRelations = relations(articleLikes, ({ one }) => ({
-  liker: one(users, {
-    fields: [articleLikes.userId],
-    references: [users.id],
-    relationName: "liker",
-  }),
-  likes: one(articleComments, {
-    fields: [articleLikes.commentId],
-    references: [articleComments.id],
-  }),
-}))
-
-export const commentsRelations = relations(
-  articleComments,
-  ({ one, many }) => ({
-    author: one(users, {
-      fields: [articleComments.userId],
-      references: [users.id],
-      relationName: "author",
-    }),
-    likes: many(articleLikes),
-    replyTo: one(articleComments, {
-      fields: [articleComments.parentId],
-      references: [articleComments.id],
-      relationName: "replies",
-    }),
-    replies: many(articleComments, {
-      relationName: "replies",
-    }),
   })
 )

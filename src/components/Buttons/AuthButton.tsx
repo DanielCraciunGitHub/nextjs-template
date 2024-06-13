@@ -15,12 +15,12 @@ export default function AuthButton({ session }: AuthSession) {
   return session ? (
     <>
       <div>Welcome {session.user.name}</div>
-      <Button onClick={() => authenticate()}>
+      <Button onClick={() => authenticate("google")}>
         <LogOutIcon />
       </Button>
     </>
   ) : (
-    <Button onClick={() => authenticate()}>
+    <Button onClick={() => authenticate("google")}>
       <LogInIcon />
     </Button>
   )

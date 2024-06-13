@@ -36,7 +36,7 @@ export const baseMetadata: Metadata = {
     creator: "@TWITTER",
     images: [
       {
-        url: `${siteConfig.url}/images/*-og.png`,
+        url: `${siteConfig.url}/images/IMAGE-og.png`,
         type: "image/png",
         width: 1200,
         height: 630,

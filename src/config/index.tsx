@@ -1,4 +1,10 @@
-import { BsDiscord, BsGithub, BsLinkedin, BsTwitterX } from "react-icons/bs"
+import {
+  BsDiscord,
+  BsGithub,
+  BsLinkedin,
+  BsMedium,
+  BsTwitterX,
+} from "react-icons/bs"
 
 import { NavItem, SocialLink } from "../types"
 
@@ -35,6 +41,12 @@ export const siteConfig = {
       name: "X.com",
       icon: <BsTwitterX />,
     },
+    {
+      href: "https://medium.com/@danielcracbusiness",
+      name: "Medium.com",
+      icon: <BsMedium />,
+    },
   ] as const satisfies SocialLink[],
-  footerText: "© 2024 APPNAME. All Rights Reserved" as const satisfies string,
+  footerText:
+    "© 2024 <APPNAME>. All Rights Reserved" as const satisfies string,
 } as const

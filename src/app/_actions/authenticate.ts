@@ -2,11 +2,11 @@
 
 import { auth, signIn, signOut } from "@/lib/auth"
 
-export async function authenticate() {
+export async function authenticate(provider: "google") {
   const session = await auth()
   if (session) {
     await signOut()
   } else {
-    await signIn("google")
+    await signIn(provider)
   }
 }

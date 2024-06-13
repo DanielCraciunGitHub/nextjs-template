@@ -5,8 +5,12 @@ import { z } from "zod"
 dotenv.config({ path: ".env.local" })
 
 export const env = createEnv({
-  client: {},
+  client: {
+    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().min(1),
+  },
   server: {
+    RECAPTCHA_SECRET_KEY: z.string().min(1),
+
     UPSTASH_REDIS_REST_URL: z.string().min(1),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
 
@@ -19,5 +23,8 @@ export const env = createEnv({
 
     TURSO_AUTH_TOKEN: z.string().min(1),
     TURSO_DATABASE_URL: z.string().min(1),
+  },
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
   },
 })

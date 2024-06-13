@@ -1,4 +1,4 @@
-import { authRouter } from "./routers/authRouter"
+import { authRouter } from "./routers"
 import { router } from "./trpc"
 
 export const appRouter = router({
