@@ -1,7 +1,7 @@
 {
   "name": "APPNAME",
   "start_url": "/",
-  "short_name": "SHORTNAME",
+  "short_name": "APPNAME",
   "icons": [
     {
       "src": "/images/android-chrome-192x192.png",
@@ -16,14 +16,14 @@
   ],
   "screenshots": [
     {
-      "src": "/images/daniel-og.png",
+      "src": "/images/IMAGE-og.png",
       "sizes": "1200x630",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Application"
     },
     {
-      "src": "/images/daniel.png",
+      "src": "/images/IMAGE.png",
       "sizes": "2258x2258",
       "type": "image/png",
       "label": "Application"
