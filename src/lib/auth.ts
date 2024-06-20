@@ -1,5 +1,6 @@
 import { db } from "@/db"
 import { env } from "@/env.mjs"
+import { Adapter } from "@auth/core/adapters"
 import Google from "@auth/core/providers/google"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import NextAuth, { DefaultSession } from "next-auth"
@@ -25,7 +26,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
-  adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db) as Adapter,
   providers: [Google],
   trustHost: true,
   session: {
